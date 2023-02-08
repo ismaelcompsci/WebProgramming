@@ -1,0 +1,46 @@
+{% extends "network/layout.html" %} {% block body %}
+
+<div>
+  <h1 style="display: inline-block">{{current_user}}</h1>
+  <span hidden id="user-id">{{current_user.id}}</span>
+  <span hidden id="browser-id">{{user.id}}</span>
+  {% if user.is_authenticated %}
+    {% if user.username != current_user.username %}
+    {% if is_following == True %}
+    <button type="submit" id="follow-button" class="btn btn-primary">Unfollow</button>
+    {% else %}
+      <button type="submit" id="follow-button" class="btn btn-primary">Follow</button>
+    {% endif%}
+    {% endif %}
+  {% endif %}
+</br>
+<div class="follow-numbers">
+  <span class="followers"><strong id="followers-count">{{current_user.followers.count}}</strong>&nbsp;&nbsp;followers</span>
+  <span class="following"><strong>{{current_user.following.count}}</strong>&nbsp;&nbsp;following</span>    
+</div>
+</div>
+<div id="posts-wall" class="profile-posts">
+<h3>All Posts</h3>
+  {% for post in posts %}
+  <div id="post-wall">
+    <div class="post">
+      <h5>
+        <a href="{% url 'profile' post.post_creator.id %}"
+          >{{ post.post_creator }}</a
+        >
+      </h5>
+      <span>{{post.text}}<br /></span>
+      <span>{{post.date}}<br /></span>
+      <button type="submit" id="like-button" name="like">
+        <img
+          src="/static/network/non-likedV2.png"
+          alt="like"
+          id="{{post.id}}"
+          class="like"
+        />
+      </button>
+      <span>{{post.likes.all.count}}</span>
+    </div>
+  </div>
+  {% endfor %}{% endblock %}
+</div>

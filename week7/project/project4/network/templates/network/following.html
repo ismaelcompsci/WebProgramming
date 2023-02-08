@@ -1,0 +1,49 @@
+{% extends "network/layout.html" %} {% block body %}
+<h1>All Posts</h1>
+
+<div id="posts-wall">
+  {% for post in posts %}
+  <div id="post-wall">
+    <div class="post">
+      <h5>
+        <a href="{% url 'profile' post.post_creator.id %}"
+          >{{ post.post_creator }}</a
+        >
+      </h5>
+      <span>{{post.text}}<br /></span>
+      <span>{{post.date}}<br /></span>
+      <button type="submit" id="like-button" name="like">
+        <img
+          src="/static/network/non-likedV2.png"
+          alt="like"
+          id="{{post.id}}"
+          class="like"
+        />
+      </button>
+      <span>{{post.likes.all.count}}</span>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% if page_obj.has_other_pages %}
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+        >Previous</a
+      >
+    </li>
+    {% endif %} {% for i in page_obj.paginator.page_range %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ i }}">{{i}}</a>
+    </li>
+    {% endfor %} {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+    </li>
+    {% endif%}
+  </ul>
+</nav>
+{% endif %}{% endblock %}

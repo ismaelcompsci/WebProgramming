@@ -1,0 +1,31 @@
+{% extends "xqc/layout.html"%}{% load static %} {% block script %}
+<script src="/static/xqc/chatlogs.js"></script>
+{% endblock%} {% block body%}
+
+<!-- display last live or Check if stream is live
+  displays last chat messages from livestreamer
+  display offline chat
+  display xqc messages in other chats
+    last seen too
+  display tiktok links that chat links
+-->
+<div class="xqc-is-live">
+  <div id="twitch-embed">
+    <script src="https://embed.twitch.tv/embed/v1.js"></script>
+  </div>
+</div>
+<div class="xqc-offline-chat">
+  <div class="offline-chat-container">
+    <ul class="offline-chats">
+      <div class="list-chats">
+        <div class="chat-height"></div>
+      </div>
+    </ul>
+  </div>
+</div>
+<hr />
+<h1 class="title-friends">xQc's Friends</h1>
+<hr />
+<div class="streams"></div>
+
+{% endblock %}
